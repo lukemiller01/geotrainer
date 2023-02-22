@@ -4,6 +4,10 @@ html, body {
     background-color: black;
 }
 
+body {
+    overflow: hidden;
+}
+
 h1 {
     color: white;
     font-weight: bolder;
