@@ -3,7 +3,7 @@ import React from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Pages
-import { Landing, Create } from '../pages';
+import { Landing, Train } from '../pages';
 
 // Framer motion
 import { AnimatePresence } from 'framer-motion';
@@ -15,7 +15,7 @@ export const AppRoutes = () => {
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path='/' element={<Landing/>}/>
-        <Route path='/create' element={<Create/>}/>
+        <Route path='/train' element={<Train/>}/>
       </Routes>
     </AnimatePresence>
 

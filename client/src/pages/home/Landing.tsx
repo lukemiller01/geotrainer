@@ -1,5 +1,5 @@
 // React
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, redirect } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react';
 import { HashLink } from 'react-router-hash-link';
 
@@ -8,6 +8,7 @@ import './landing.css';
 
 // Bootstrap:
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 // Framer motion:
 import {easeInOut, motion} from 'framer-motion';
@@ -28,7 +29,12 @@ const Landing = () => {
     }
   }, [location])
 
+  useEffect(() => {
+    document.body.className = 'hidden';
+  }, []);
+
   const [pageSection, setPageSection] = useState(false); // Sets if the user is on the landing page or the create game section
+  const [buttonsActive, setButtonsActive] = useState({flags: true, capitals: false})
 
   // Sets the type of animation Framer Motion will apply to the motion div
   const tween = {
@@ -53,12 +59,17 @@ const Landing = () => {
             <Button variant="primary" size='lg'>Play Now</Button>
           </HashLink>
         </div>
-        <div className='landing__center' id='create'>
-          <h1>Choose Your Game</h1>
-          <p>Select the type of game you'd like to play, or</p>
+        <div className='landing__bottom' id='create'>
           <HashLink smooth to='/#home'>
-            <Button variant="primary" size='lg'>Back to top</Button>
+            <p>Back to top</p>
           </HashLink>
+          <h1>Choose your topic</h1>
+          <p>Select your game preferences</p>
+          <ButtonGroup aria-label="Game styles">
+            <Button variant="outline-secondary" className='game__button' active={buttonsActive.flags} onClick={() => setButtonsActive({...buttonsActive, flags: true, capitals: false})}>Flags</Button>
+            <Button variant="outline-secondary" className='game__button' active={buttonsActive.capitals} onClick={() => setButtonsActive({...buttonsActive, capitals: true, flags: false})}>Capitals</Button>
+          </ButtonGroup>
+          <Button variant="primary" className='game__button' onClick={() => navigate('/train')}>Start</Button>
         </div>
       </motion.div>
     </div>

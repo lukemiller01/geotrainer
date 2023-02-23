@@ -1,3 +1,7 @@
+.hidden {
+    overflow: hidden;
+}
+
 .bg__container {
     position: relative;
     /* overflow-y: hidden; */
@@ -31,4 +35,17 @@
     height: 100vh;
     flex-direction: column;
     gap: 1rem;
+}
+
+.landing__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.game__button {
+    min-width: 100px;
 }

@@ -1,2 +1,2 @@
 export { default as Landing } from './home/Landing';
-export { default as Create } from './create/Create'
+export { default as Train } from './train/Train';
