@@ -1,0 +1,29 @@
+.score__container {
+    min-width: 75%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.train__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.choice__text {
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
