@@ -33,3 +33,18 @@
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
 }
+
+@media screen and (max-width: 585px) {
+    .train__container {
+        padding: .5rem;
+    }
+
+    .table__image {
+        width: 100%;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: .25rem;
+        /* font-size: small; */
+    }
+}

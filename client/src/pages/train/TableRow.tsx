@@ -16,7 +16,7 @@ const TableRow = ({answer, correct, flag, index}:any) => {
   return (
     <tr style={{verticalAlign: 'middle', fontWeight: 'bold'}}>
         <td>{index}</td>
-        <td><Image src={flag}></Image></td>
+        <td><Image src={flag} className='table__image'></Image></td>
         <td colSpan={col} style={{color: colorRed}}>{answer}</td>
         <td style={{display: hidden, color: colorGreen}}>{correct}</td>
     </tr>

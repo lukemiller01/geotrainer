@@ -92,7 +92,7 @@ export default function Train() {
         ? <div>
             <h2>{currentQuestion + 1}/20</h2>
             {questions !== undefined
-              ? <Card style={{ width: '18rem' }}>
+              ? <Card style={{ width: '18rem' }} border="black">
                 <Card.Img variant="top" src={questions[currentQuestion].flag} />
                 <Card.Body className='card__content'>
                   <Card.Title>Which country this flag from?</Card.Title>

@@ -16,8 +16,8 @@
     left: 0;
     bottom: 0;
 
-    background-image: url(/iceland.jpeg);
-    background-color: rgba(0,0,0,.8);
+    background-image: url(/mountain.png);
+    background-color: rgba(0,0,0,.5);
     background-blend-mode: multiply;
 
     background-position: center;
