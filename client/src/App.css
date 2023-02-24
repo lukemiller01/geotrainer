@@ -16,6 +16,14 @@ h2 {
     font-size: 25px;
 }
 
+tr {
+    color: white;
+}
+
+td {
+    color: white;
+}
+
 p {
     color: white;
 }

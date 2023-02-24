@@ -8,6 +8,10 @@ import './train.css'
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Table from 'react-bootstrap/Table';
+
+// Components
+import TableRow from './TableRow';
 
 type Question = {
   [key: number]: number;
@@ -27,6 +31,7 @@ export default function Train() {
   const [currentQuestion, incrementQuestion] = useState(0); // The question #
   const [choice, setChoice] = useState([false, false, false, false]) // The user's current choice
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
+  const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
 
   // Removing "hidden" overflow from the body class
   useEffect(() => {
@@ -72,11 +77,14 @@ export default function Train() {
     if (questions !== undefined && choice[questions[currentQuestion].correct]) { // If the answer is correct, increment
       incrementCorrect(correct + 1)
     }
+    if (questions !== undefined ) { // Gets the user's input
+      setResponse([...response, questions[currentQuestion].countries[choice.findIndex((element) => element === true)]])
+    }
     setChoice([false, false, false, false]) // Reset the highlighted choice
     incrementQuestion(currentQuestion + 1) // Updates the question number
 
   }
-
+  
   return (
     <div className='train__container'>
       <h1>Flags</h1>
@@ -89,24 +97,41 @@ export default function Train() {
                 <Card.Body className='card__content'>
                   <Card.Title>Which country this flag from?</Card.Title>
                   <ListGroup as="ul">
-                    <ListGroup.Item as="li" action active={choice[0]} onClick={() => setChoice([true, false, false, false])} className='choice__text'>{questions[currentQuestion].countries[0]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>{questions[currentQuestion].countries[1]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action active={choice[2]} onClick={() => setChoice([false, false, true, false])} className='choice__text'>{questions[currentQuestion].countries[2]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action active={choice[3]} onClick={() => setChoice([false, false, false, true])} className='choice__text'>{questions[currentQuestion].countries[3]}</ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[0]? 'primary' : ''} active={choice[0]} onClick={() => setChoice([true, false, false, false])} className='choice__text'>{questions[currentQuestion].countries[0]}</ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[1]? 'primary' : ''} active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>{questions[currentQuestion].countries[1]}</ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[2]? 'primary' : ''} active={choice[2]} onClick={() => setChoice([false, false, true, false])} className='choice__text'>{questions[currentQuestion].countries[2]}</ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[3]? 'primary' : ''} active={choice[3]} onClick={() => setChoice([false, false, false, true])} className='choice__text'>{questions[currentQuestion].countries[3]}</ListGroup.Item>
                   </ListGroup>
                   <Button variant="primary" onClick={() => nextQuestion()}>Next</Button>
                 </Card.Body>
               </Card>
               : null}
           </div>
-        : <Card className="score__container">
-            <Card.Body>
-              <Card.Title>Congrats!</Card.Title>
-              <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
-              <p style={{ color: 'black' }}>{correct}/20</p>
-              <Button variant="primary" onClick={() => window.location.reload()}>Play Again</Button>
-            </Card.Body>
-          </Card>
+        : <div className="score__container">
+            <Card className='score__container-top'>
+              <Card.Body>
+                <Card.Title>Congrats!</Card.Title>
+                <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
+                <p style={{ color: 'black' }}>{correct}/20</p>
+                <Button variant="primary" onClick={() => window.location.reload()}>Play Again</Button>
+              </Card.Body>
+            </Card>
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Flag</th>
+                  <th>Your Pick</th>
+                  <th>Answer</th>
+                </tr>
+              </thead>
+              <tbody>
+                {response.map((item, index) => (
+                  <TableRow answer={item} correct={questions? questions[index].countries[questions[index].correct] : null} flag={questions? questions[index].flag : null} index={index+1} key={index}/>
+                ))}
+              </tbody>
+            </Table>
+          </div>
       }
     </div>
   );

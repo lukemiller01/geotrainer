@@ -4,6 +4,12 @@
     align-items: center;
     text-align: center;
     flex-direction: column;
+
+    gap: 2rem;
+}
+
+.score__container-top {
+    width: 100%;
 }
 
 .train__container {
