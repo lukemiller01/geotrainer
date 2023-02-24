@@ -59,11 +59,11 @@ const Landing = () => {
             <Button variant="primary" size='lg'>Play Now</Button>
           </HashLink>
         </div>
-        <div className='landing__bottom' id='create'>
+        <div className='landing__center' id='create'>
           <HashLink smooth to='/#home'>
             <p>Back to top</p>
           </HashLink>
-          <h1>Choose your topic</h1>
+          <h1>Choose Your Topic</h1>
           <p>Select your game preferences</p>
           <ButtonGroup aria-label="Game styles">
             <Button variant="outline-secondary" className='game__button' active={buttonsActive.flags} onClick={() => setButtonsActive({...buttonsActive, flags: true, capitals: false})}>Flags</Button>

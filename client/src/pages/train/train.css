@@ -45,6 +45,6 @@
 
     .table > :not(caption) > * > * {
         padding: .25rem;
-        /* font-size: small; */
+        font-size: small;
     }
 }
