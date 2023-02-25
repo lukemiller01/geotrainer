@@ -1,41 +1,22 @@
-.hidden {
-    overflow: hidden;
-}
-
-.bg__container {
-    position: relative;
-    /* overflow-y: hidden; */
-    width: 100vw;
-    height: 100vh;
-}
-
 .bg__image {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-
-    background-image: url(/mountain.png);
-    background-color: rgba(0,0,0,.5);
-    background-blend-mode: multiply;
-
-    background-position: center;
-    background-repeat: no-repeat;
-
-    background-size: auto 150%;
-    height: 200vh;
+    background:rgba(117, 201, 240, 1);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
 .landing__center {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     flex-direction: column;
     text-align: center;
     gap: 1rem;
-    padding: 1rem;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0,0,0,.5);
+    background-blend-mode: multiply;
+    height: 100%;
 }
 
 .game__button {
@@ -45,5 +26,57 @@
 @media screen and (max-width: 585px) {
     .landing__center {
         padding: .5rem;
+    }
+}
+
+/* SVG STYLES */
+
+.svg__pink-mountains {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.svg__purple-mountains {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.svg__ground {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.svg__background {
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+@media screen and (max-width: 700px) {
+    .svg__ground {
+        width: auto;
+        height: 100%;
+    }
+
+    .svg__purple-mountains {
+        width: auto;
+        height: 100%;
+    }
+
+    .svg__pink-mountains {
+        width: auto;
+        height: 50%;
+    }
+
+    .svg__background {
+        width: auto;
+        height: 50%;
     }
 }
