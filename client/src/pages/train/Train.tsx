@@ -83,7 +83,7 @@ export default function Train() {
   }
 
   function refresh() {
-    window.location.reload();
+    navigate(0);
   }
   
   return (
