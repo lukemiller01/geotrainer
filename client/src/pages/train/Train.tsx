@@ -1,6 +1,6 @@
 // React
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+// import { useNavigate, useLocation } from 'react-router-dom'
 
 // Styles
 import './train.css'
@@ -33,10 +33,7 @@ export default function Train() {
   const [choice, setChoice] = useState([false, false, false, false]) // The user's current choice
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
-
-  // let navigate = useNavigate();
-  // const location = useLocation();
-  // console.log(location.key)
+  const [pageRefresh, setPageRefresh] = useState(true);
 
   function generateCountries(max: number) { // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
@@ -72,7 +69,7 @@ export default function Train() {
       setQuestions(pairs); // Sets the state of the questions list
     };
     fetchPost();
-  }, [])
+  }, [pageRefresh])
 
   function nextQuestion() {
     if (questions !== undefined && choice[questions[currentQuestion].correct]) { // If the answer is correct, increment
@@ -83,10 +80,6 @@ export default function Train() {
     }
     setChoice([false, false, false, false]) // Reset the highlighted choice
     incrementQuestion(currentQuestion + 1) // Updates the question number
-  }
-
-  function refresh() {
-    window.location.href = window.location.href;
   }
   
   return (
@@ -117,7 +110,7 @@ export default function Train() {
                 <Card.Title>Congrats!</Card.Title>
                 <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
                 <p style={{ color: 'black' }}>{correct}/20</p>
-                <Button variant="primary" onClick={() => refresh()}>Play Again</Button>
+                <Button variant="primary" onClick={() => setPageRefresh(!pageRefresh)}>Play Again</Button>
               </Card.Body>
             </Card>
             <Table bordered>
