@@ -33,7 +33,7 @@ export default function Train() {
   const [choice, setChoice] = useState([false, false, false, false]) // The user's current choice
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
-  const [pageRefresh, setPageRefresh] = useState(true);
+  const [pageRefresh, setPageRefresh] = useState(0);
 
   function generateCountries(max: number) { // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
@@ -52,7 +52,6 @@ export default function Train() {
   }
 
   useEffect(() => {
-    incrementQuestion(0);
     const fetchPost = async () => {
       const response = await fetch('https://restcountries.com/v3.1/all'); // Get all data from API
       const data = await response.json(); // Convert data to JSON
@@ -80,6 +79,15 @@ export default function Train() {
     }
     setChoice([false, false, false, false]) // Reset the highlighted choice
     incrementQuestion(currentQuestion + 1) // Updates the question number
+  }
+
+  function refresh() {
+    setQuestions(undefined);
+    incrementQuestion(0);
+    setChoice([false, false, false, false]);
+    incrementCorrect(0);
+    setResponse([]);
+    setPageRefresh(pageRefresh + 1);
   }
   
   return (
@@ -110,7 +118,7 @@ export default function Train() {
                 <Card.Title>Congrats!</Card.Title>
                 <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
                 <p style={{ color: 'black' }}>{correct}/20</p>
-                <Button variant="primary" onClick={() => setPageRefresh(!pageRefresh)}>Play Again</Button>
+                <Button variant="primary" onClick={() => refresh()}>Play Again</Button>
               </Card.Body>
             </Card>
             <Table bordered>
