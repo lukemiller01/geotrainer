@@ -1,5 +1,6 @@
 // React
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Styles
 import './train.css'
@@ -33,10 +34,7 @@ export default function Train() {
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
 
-  // Removing "hidden" overflow from the body class
-  useEffect(() => {
-    document.body.className = '';
-  }, []);
+  let navigate = useNavigate();
 
   function generateCountries(max: number) { // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
@@ -113,7 +111,7 @@ export default function Train() {
                 <Card.Title>Congrats!</Card.Title>
                 <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
                 <p style={{ color: 'black' }}>{correct}/20</p>
-                <Button variant="primary" onClick={() => window.location.reload()}>Play Again</Button>
+                <Button variant="primary" onClick={() => navigate('/train')}>Play Again</Button>
               </Card.Body>
             </Card>
             <Table bordered>
