@@ -111,7 +111,7 @@ export default function Train() {
                 <Card.Title>Congrats!</Card.Title>
                 <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
                 <p style={{ color: 'black' }}>{correct}/20</p>
-                <Button variant="primary" onClick={() => navigate('/train')}>Play Again</Button>
+                <Button variant="primary" onClick={() => navigate(0)}>Play Again</Button>
               </Card.Body>
             </Card>
             <Table bordered>
