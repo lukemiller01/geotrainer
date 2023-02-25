@@ -1,6 +1,6 @@
 // React
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 // Styles
 import './train.css'
@@ -34,7 +34,9 @@ export default function Train() {
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
+  // const location = useLocation();
+  // console.log(location.key)
 
   function generateCountries(max: number) { // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
@@ -53,6 +55,7 @@ export default function Train() {
   }
 
   useEffect(() => {
+    incrementQuestion(0);
     const fetchPost = async () => {
       const response = await fetch('https://restcountries.com/v3.1/all'); // Get all data from API
       const data = await response.json(); // Convert data to JSON
@@ -83,7 +86,7 @@ export default function Train() {
   }
 
   function refresh() {
-    navigate(0);
+    window.location.href = window.location.href;
   }
   
   return (
@@ -96,7 +99,7 @@ export default function Train() {
               ? <Card style={{ width: '18rem' }} border="black">
                 <Card.Img variant="top" src={questions[currentQuestion].flag} />
                 <Card.Body className='card__content'>
-                  <Card.Title>Which country this flag from?</Card.Title>
+                  <Card.Title>Which country is this flag from?</Card.Title>
                   <ListGroup as="ul">
                     <ListGroup.Item as="li" action variant={choice[0]? 'primary' : ''} active={choice[0]} onClick={() => setChoice([true, false, false, false])} className='choice__text'>{questions[currentQuestion].countries[0]}</ListGroup.Item>
                     <ListGroup.Item as="li" action variant={choice[1]? 'primary' : ''} active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>{questions[currentQuestion].countries[1]}</ListGroup.Item>
