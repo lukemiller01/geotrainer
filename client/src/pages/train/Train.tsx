@@ -80,7 +80,6 @@ export default function Train() {
     }
     setChoice([false, false, false, false]) // Reset the highlighted choice
     incrementQuestion(currentQuestion + 1) // Updates the question number
-
   }
   
   return (
@@ -111,7 +110,7 @@ export default function Train() {
                 <Card.Title>Congrats!</Card.Title>
                 <Card.Text style={{ color: 'black' }}>Your Score:</Card.Text>
                 <p style={{ color: 'black' }}>{correct}/20</p>
-                <Button variant="primary" onClick={() => navigate(0)}>Play Again</Button>
+                <Button variant="primary" onClick={() => document.location.reload()}>Play Again</Button>
               </Card.Body>
             </Card>
             <Table bordered>
