@@ -14,6 +14,9 @@ import Table from 'react-bootstrap/Table';
 // Components
 import TableRow from './TableRow';
 
+// Framer Motion
+import { easeInOut, motion } from 'framer-motion';
+
 type Question = {
   [key: number]: number;
   countries: Array<number>;
@@ -33,7 +36,7 @@ export default function Train() {
   const [choice, setChoice] = useState([false, false, false, false]) // The user's current choice
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
-  const [pageRefresh, setPageRefresh] = useState(0);
+  const [pageRefresh, setPageRefresh] = useState(0); // When the "Play Again" button is pressed, this state changes to run useEffect again
 
   function generateCountries(max: number) { // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
@@ -89,6 +92,19 @@ export default function Train() {
     setResponse([]);
     setPageRefresh(pageRefresh + 1);
   }
+
+  // Sets the type of animation Framer Motion will apply to the motion div
+  const tween = {
+    type: "tween",
+    duration: .1,
+    ease: easeInOut,
+  }
+
+  // Multiple choice animation
+  const transform = {
+    open: { transform: 'scale(1)', opacity: 1 },
+    closed: { transform: 'scale(0)', opacity: .5 },
+  }
   
   return (
     <div className='train__container'>
@@ -98,14 +114,34 @@ export default function Train() {
             <h2>{currentQuestion + 1}/20</h2>
             {questions !== undefined
               ? <Card style={{ width: '18rem' }} border="black">
-                <Card.Img variant="top" src={questions[currentQuestion].flag} />
+                <Card.Img variant="top" src={questions[currentQuestion].flag}/>
                 <Card.Body className='card__content'>
                   <Card.Title>Which country is this flag from?</Card.Title>
-                  <ListGroup as="ul">
-                    <ListGroup.Item as="li" action variant={choice[0]? 'primary' : ''} active={choice[0]} onClick={() => setChoice([true, false, false, false])} className='choice__text'>{questions[currentQuestion].countries[0]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action variant={choice[1]? 'primary' : ''} active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>{questions[currentQuestion].countries[1]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action variant={choice[2]? 'primary' : ''} active={choice[2]} onClick={() => setChoice([false, false, true, false])} className='choice__text'>{questions[currentQuestion].countries[2]}</ListGroup.Item>
-                    <ListGroup.Item as="li" action variant={choice[3]? 'primary' : ''} active={choice[3]} onClick={() => setChoice([false, false, false, true])} className='choice__text'>{questions[currentQuestion].countries[3]}</ListGroup.Item>
+                  <ListGroup as="ul" className='multiple__choice'>
+                    <ListGroup.Item as="li" action variant={choice[0]? 'primary' : ''} active={choice[0]} onClick={() => setChoice([true, false, false, false])} className='choice__text'>
+                      <span className="dot__outline">
+                        <motion.span className='dot' transition={tween} animate={choice[0] ? "open" : "closed"} variants={transform}></motion.span>
+                      </span>
+                      {questions[currentQuestion].countries[0]}
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[1]? 'primary' : ''} active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>
+                      <span className="dot__outline">
+                        <motion.span className='dot' transition={tween} animate={choice[1] ? "open" : "closed"} variants={transform}></motion.span>
+                      </span>
+                      {questions[currentQuestion].countries[1]}
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[2]? 'primary' : ''} active={choice[2]} onClick={() => setChoice([false, false, true, false])} className='choice__text'>
+                      <span className="dot__outline">
+                        <motion.span className='dot' transition={tween} animate={choice[2] ? "open" : "closed"} variants={transform}></motion.span>
+                      </span>
+                      {questions[currentQuestion].countries[2]}
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" action variant={choice[3]? 'primary' : ''} active={choice[3]} onClick={() => setChoice([false, false, false, true])} className='choice__text'>
+                      <span className="dot__outline">
+                        <motion.span className='dot' transition={tween} animate={choice[3] ? "open" : "closed"} variants={transform}></motion.span>
+                      </span>
+                      {questions[currentQuestion].countries[3]}
+                    </ListGroup.Item>
                   </ListGroup>
                   <Button variant="primary" onClick={() => nextQuestion()}>Next</Button>
                 </Card.Body>
