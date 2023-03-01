@@ -122,25 +122,25 @@ export default function Train() {
                       <span className="dot__outline">
                         <motion.span className='dot' transition={tween} animate={choice[0] ? "open" : "closed"} variants={transform}></motion.span>
                       </span>
-                      {questions[currentQuestion].countries[0]}
+                      <p className='mutliple__choice-text' style={choice[0] ? {color: 'white'}: {color: 'black'}}>{questions[currentQuestion].countries[0]}</p>
                     </ListGroup.Item>
                     <ListGroup.Item as="li" action variant={choice[1]? 'primary' : ''} active={choice[1]} onClick={() => setChoice([false, true, false, false])} className='choice__text'>
                       <span className="dot__outline">
                         <motion.span className='dot' transition={tween} animate={choice[1] ? "open" : "closed"} variants={transform}></motion.span>
                       </span>
-                      {questions[currentQuestion].countries[1]}
+                      <p className='mutliple__choice-text' style={choice[1] ? {color: 'white'}: {color: 'black'}}>{questions[currentQuestion].countries[1]}</p>
                     </ListGroup.Item>
                     <ListGroup.Item as="li" action variant={choice[2]? 'primary' : ''} active={choice[2]} onClick={() => setChoice([false, false, true, false])} className='choice__text'>
                       <span className="dot__outline">
                         <motion.span className='dot' transition={tween} animate={choice[2] ? "open" : "closed"} variants={transform}></motion.span>
                       </span>
-                      {questions[currentQuestion].countries[2]}
+                      <p className='mutliple__choice-text' style={choice[2] ? {color: 'white'}: {color: 'black'}}>{questions[currentQuestion].countries[2]}</p>
                     </ListGroup.Item>
                     <ListGroup.Item as="li" action variant={choice[3]? 'primary' : ''} active={choice[3]} onClick={() => setChoice([false, false, false, true])} className='choice__text'>
                       <span className="dot__outline">
                         <motion.span className='dot' transition={tween} animate={choice[3] ? "open" : "closed"} variants={transform}></motion.span>
                       </span>
-                      {questions[currentQuestion].countries[3]}
+                      <p className='mutliple__choice-text' style={choice[3] ? {color: 'white'}: {color: 'black'}}>{questions[currentQuestion].countries[3]}</p>
                     </ListGroup.Item>
                   </ListGroup>
                   <Button variant="primary" onClick={() => nextQuestion()}>Next</Button>

@@ -69,6 +69,16 @@
     gap: .5rem;
 }
 
+.mutliple__choice-text {
+    margin: 0;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+.mutliple__choice-text::-webkit-scrollbar {
+    display: none;
+}
+
 .train__container {
     display: flex;
     justify-content: center;
