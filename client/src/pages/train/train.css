@@ -30,9 +30,20 @@
     height: 10px;
     width: 10px;
     border-radius: 50%;
-    outline: 2px solid;
-    outline-offset: 2px;
 }
+
+.dot__outline::after {
+    position: absolute;
+    top: 11px;
+    left: 12px;
+    content: '';
+    width: 18px;
+    height: 18px;
+    border: 2px solid;
+    border-radius: 50%;
+    background-color: transparent;
+    display: inherit;
+  }
 
 .dot {
     display: flex;
