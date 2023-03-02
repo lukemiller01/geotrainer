@@ -69,6 +69,24 @@
     gap: .5rem;
 }
 
+.current__question {
+    position: relative;
+    top: 22px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    background: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem;
+    margin-bottom: 0;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    align-items: center;
+    color: black;
+}
+
 .mutliple__choice-text {
     margin: 0;
     overflow: scroll;
