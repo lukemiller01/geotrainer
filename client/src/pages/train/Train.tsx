@@ -132,7 +132,7 @@ export default function Train() {
   };
 
   return (
-    <div className="train__container">
+    <motion.div className="train__container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <h1>Flags</h1>
       {loading ? (
         <QuestionSkeleton />
@@ -295,6 +295,6 @@ export default function Train() {
           </Table>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
