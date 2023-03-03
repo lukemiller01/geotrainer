@@ -1,1 +1,2 @@
-server/geotrainer/lib/python3/site-packages/* linguist-vendored=true
+# Apply override to all files and directories in the directory
+server/geotrainer/lib/** linguist-vendored=true
