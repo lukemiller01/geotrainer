@@ -15,7 +15,7 @@ import TableRow from "./TableRow";
 import QuestionSkeleton from "../../skeleton/QuestionSkeleton";
 
 // Framer Motion
-import { easeInOut, motion } from "framer-motion";
+import { easeInOut, motion, useSpring } from "framer-motion";
 
 type Question = {
   [key: number]: number;
@@ -94,7 +94,7 @@ export default function Train() {
       setResponse([
         ...response,
         questions[currentQuestion].countries[
-          choice.findIndex((element) => element === true)
+        choice.findIndex((element) => element === true)
         ],
       ]);
     }
@@ -124,18 +124,26 @@ export default function Train() {
     closed: { transform: "scale(0)", opacity: 0.5 },
   };
 
+  // Progress bar animation
+  const scaleX = {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  };
+
   return (
     <div className="train__container">
       <h1>Flags</h1>
       {loading ? (
         <QuestionSkeleton />
       ) : currentQuestion !== 20 ? (
-        <div style={{ marginTop: "-22px" }}>
-          <p className="current__question">{currentQuestion + 1}</p>
+        <div>
           {questions !== undefined ? (
-            <Card style={{ width: "18rem" }} border="black">
-              <div style={{minHeight: '190px', display:'flex', alignItems: 'start', background: 'white', borderRadius: '6px'}}>
-                <Card.Img variant="top" src={questions[currentQuestion].flag}/>
+            <Card style={{ width: "18rem", overflow: 'hidden' }} border="black">
+              <p className="current__question">{currentQuestion + 1}/20</p>
+              <motion.div className="progress__bar" animate={{ width: (currentQuestion + 1) / 20 * 100 + '%' }} transition={scaleX}></motion.div>
+              <div style={{ display: 'flex', alignItems: 'start', background: 'white' }}>
+                <Card.Img variant="top" src={questions[currentQuestion].flag} />
               </div>
               <Card.Body className="card__content">
                 <Card.Title>Which country is this flag from?</Card.Title>

@@ -1,6 +1,1 @@
-*.ts linguist-language=TypeScript
-*.tsx linguist-language=TypeScript
-*.py linguist-language=Python
-*.css linguist-language=CSS
-*.scss linguist-language=SCSS
-*.html linguist-language=HTML
+server/geotrainer/lib/* linguist-vendored
