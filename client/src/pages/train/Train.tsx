@@ -15,7 +15,7 @@ import TableRow from "./TableRow";
 import QuestionSkeleton from "../../skeleton/QuestionSkeleton";
 
 // Framer Motion
-import { easeInOut, motion, useSpring } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 
 type Question = {
   [key: number]: number;
@@ -36,10 +36,8 @@ export default function Train() {
   const [correct, incrementCorrect] = useState(0); // How many the user has correct
   const [response, setResponse] = useState<Array<number>>([]); // The Array of user responses
   const [pageRefresh, setPageRefresh] = useState(0); // When the "Play Again" button is pressed, this state changes to run useEffect again
-  const [loading, setLoading] = useState(true); // If the data is being fetched from REST countries, display Skeleton
 
   function generateCountries(max: number) {
-    // Generates all indeces for every question
     var countryIndeces: { [key: number]: RandomIndeces } = {};
     for (let i = 0; i < 20; i++) {
       // For every question, generate a list of random indeces
@@ -58,11 +56,10 @@ export default function Train() {
   }
 
   useEffect(() => {
-    setLoading(true);
     const fetchPost = async () => {
       const response = await fetch("https://restcountries.com/v3.1/all"); // Get all data from API
       const data = await response.json(); // Convert data to JSON
-      var pairs: { [key: number]: Question } = {}; // Instantiate a var to add to
+      var pairs: { [key: number]: Question } = {}; // Instantiate a "pairs" var to add to
       var countryIndeces = generateCountries(data.length - 1); // Generates a list of random indeces
       for (var i = 0; i < 20; i++) {
         var correct = Math.floor(Math.random() * 4); // Generates the "correct" answer
@@ -81,21 +78,21 @@ export default function Train() {
       setQuestions(pairs); // Sets the state of the questions list
     };
     fetchPost();
-    setLoading(false);
-  }, [pageRefresh]);
+  }, [pageRefresh]); // On page refresh, start a new game
 
   function nextQuestion() {
     if (questions !== undefined && choice[questions[currentQuestion].correct]) {
-      // If the answer is correct, increment
+      // If the answer is correct, increment the correctness score
       incrementCorrect(correct + 1);
     }
     if (questions !== undefined) {
+      // Type-safe
       // Gets the user's input
       setResponse([
-        ...response,
+        ...response, // The full response
         questions[currentQuestion].countries[
-        choice.findIndex((element) => element === true)
-        ],
+          choice.findIndex((element) => element === true)
+        ], // Add the new response before moving to next question
       ]);
     }
     setChoice([false, false, false, false]); // Reset the highlighted choice
@@ -103,46 +100,59 @@ export default function Train() {
   }
 
   function refresh() {
-    setQuestions(undefined);
-    incrementQuestion(0);
-    setChoice([false, false, false, false]);
-    incrementCorrect(0);
-    setResponse([]);
-    setPageRefresh(pageRefresh + 1);
+    setQuestions(undefined); // Resets the questions
+    incrementQuestion(0); // Resets the question number
+    setChoice([false, false, false, false]); // Resets the multiple choice selection
+    incrementCorrect(0); // Resets the correct answers
+    setResponse([]); // Resets the response array
+    setPageRefresh(pageRefresh + 1); // Change page refresh to trigger a new fetch
   }
 
-  // Sets the type of animation Framer Motion will apply to the motion div
   const tween = {
+    // Sets the type of animation Framer Motion will apply to the motion div
     type: "tween",
     duration: 0.1,
     ease: easeInOut,
   };
 
-  // Multiple choice animation
   const transform = {
+    // Multiple choice animation
     open: { transform: "scale(1)", opacity: 1 },
     closed: { transform: "scale(0)", opacity: 0.5 },
   };
 
-  // Progress bar animation
   const scaleX = {
+    // Progress bar animation
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   };
 
   return (
-    <motion.div className="train__container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <motion.div
+      className="train__container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1>Flags</h1>
-      {loading ? (
-        <QuestionSkeleton />
-      ) : currentQuestion !== 20 ? (
+      {currentQuestion !== 20 ? (
         <div>
           {questions !== undefined ? (
-            <Card style={{ width: "18rem", overflow: 'hidden' }} border="black">
+            <Card style={{ width: "18rem", overflow: "hidden" }} border="black">
               <p className="current__question">{currentQuestion + 1}/20</p>
-              <motion.div className="progress__bar" animate={{ width: (currentQuestion + 1) / 20 * 100 + '%' }} transition={scaleX}></motion.div>
-              <div style={{ display: 'flex', alignItems: 'start', background: 'white' }}>
+              <motion.div
+                className="progress__bar"
+                animate={{ width: ((currentQuestion + 1) / 20) * 100 + "%" }}
+                transition={scaleX}
+              ></motion.div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "start",
+                  background: "white",
+                }}
+              >
                 <Card.Img variant="top" src={questions[currentQuestion].flag} />
               </div>
               <Card.Body className="card__content">
@@ -254,7 +264,9 @@ export default function Train() {
                 </Button>
               </Card.Body>
             </Card>
-          ) : null}
+          ) : (
+            <QuestionSkeleton />
+          )}
         </div>
       ) : (
         <div className="score__container">
@@ -284,9 +296,9 @@ export default function Train() {
                   correct={
                     questions
                       ? questions[index].countries[questions[index].correct]
-                      : null
+                      : -1
                   }
-                  flag={questions ? questions[index].flag : null}
+                  flag={questions ? questions[index].flag : "/unknown-flag.png"}
                   index={index + 1}
                   key={index}
                 />

@@ -17,6 +17,5 @@ export const AppRoutes = () => {
         <Route path='/train' element={<Train/>}/>
       </Routes>
     </AnimatePresence>
-
   )
 }

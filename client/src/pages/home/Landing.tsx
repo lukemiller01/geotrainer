@@ -22,8 +22,8 @@ const Landing = () => {
   }); // Sets game buttons
   const [transitionDisplay, setTransitionDisplay] = useState(true); // Sets if the landing content is visible or not for page transition to /train.
 
+  // On user navigation from landing page to game creation (or vice versa)
   function changeSection() {
-    // On user navigation from landing page to game creation (or vice versa)
     setPageSection(!pageSection);
   }
 
