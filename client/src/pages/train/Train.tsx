@@ -71,7 +71,7 @@ export default function Train() {
             data[countryIndeces[i].countries[2]].name["common"],
             data[countryIndeces[i].countries[3]].name["common"],
           ],
-          flag: data[countryIndeces[i].countries[correct]].flags["png"],
+          flag: data[countryIndeces[i].countries[correct]].flags["svg"],
           correct: correct,
         };
       }
@@ -153,7 +153,7 @@ export default function Train() {
                   background: "white",
                 }}
               >
-                <Card.Img variant="top" src={questions[currentQuestion].flag} />
+                <Card.Img variant="top" src={questions[currentQuestion].flag} style={{height: '160px', objectFit: 'contain'}}/>
               </div>
               <Card.Body className="card__content">
                 <Card.Title>Which country is this flag from?</Card.Title>

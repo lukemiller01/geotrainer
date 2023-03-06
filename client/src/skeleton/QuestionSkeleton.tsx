@@ -11,7 +11,7 @@ const QuestionSkeleton = () => {
     return (
         <div>
             <Card style={{ width: '18rem', overflow: 'hidden' }} border="black">
-                <p className="current__question">/20</p>
+                <p className="current__question" style={{backgroundColor: 'white'}}>/20</p>
                 <Skeleton width={286} height={190}></Skeleton>
                 <Card.Body className='card__content'>
                     <Card.Title>Which country is this flag from?</Card.Title>

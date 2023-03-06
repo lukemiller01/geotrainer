@@ -55,10 +55,10 @@ const Landing = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ delay: 0.25 }}
+      transition={{ delay: 0.50 }}
     >
       <div
         style={{
