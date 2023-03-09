@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 // Styles
-import "./train.css";
+import "./flags.css";
 
 // Bootstrap
 import ListGroup from "react-bootstrap/ListGroup";
@@ -11,7 +11,7 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 
 // Components
-import TableRow from "./TableRow";
+import TableRow from "../../components/TableRow";
 import QuestionSkeleton from "../../skeleton/QuestionSkeleton";
 
 // Framer Motion
@@ -29,7 +29,7 @@ type RandomIndeces = {
   countries: Array<number>;
 };
 
-export default function Train() {
+export default function Flags() {
   const [questions, setQuestions] = useState<{ [key: number]: Question }>(); // Gathers a list of countries / corresponding flags
   const [currentQuestion, incrementQuestion] = useState(0); // The question #
   const [choice, setChoice] = useState([false, false, false, false]); // The user's current choice

@@ -31,7 +31,12 @@ const Landing = () => {
   function navigateGame() {
     setTransitionDisplay(false);
     changeSection();
-    navigate("/train");
+    if(buttonsActive.flags) {
+      navigate("/flags");
+    }
+    else {
+      navigate('/capitals');
+    }
   }
 
   // Sets the type of animation Framer Motion will apply to the motion div
